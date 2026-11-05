@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.shoesphere.api.entity.User;
 import com.shoesphere.api.repository.UserRepository;
 import com.shoesphere.api.service.UserService;
+
+import jakarta.servlet.http.HttpSession;
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -20,5 +22,14 @@ public class UserServiceImpl implements UserService {
 		}
 		return urepo.save(user);
 	}
-
+	@Override
+	public User loginUser(String email, String password, HttpSession session) {
+		User user=urepo.findByEmail(email).orElseThrow(()->new RuntimeException("User Not Found!"));
+		if(!user.getPassword().equals(password))
+			throw new RuntimeException("Wrong Credentials");
+		session.setAttribute("uname",user.getName());
+		session.setAttribute("uemail",user.getEmail());
+		session.setAttribute("uphone",user.getPhone());
+		return user;
+	}
 }

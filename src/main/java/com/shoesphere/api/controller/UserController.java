@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.shoesphere.api.entity.User;
 import com.shoesphere.api.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -18,5 +20,9 @@ public class UserController {
 	public String register(@RequestBody User user) {
 		uservice.registerUser(user);
 		return "User Registered Successfully!";
+	}
+	@PostMapping("/login")
+	public User login(@RequestBody User user,HttpSession session) {
+		return uservice.loginUser(user.getEmail(), user.getPassword(), session);
 	}
 }
