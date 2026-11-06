@@ -32,4 +32,11 @@ public class UserServiceImpl implements UserService {
 		session.setAttribute("uphone",user.getPhone());
 		return user;
 	}
+	@Override
+	public void logoutUser(HttpSession session) {
+		session.removeAttribute("uname");
+		session.removeAttribute("uemail");
+		session.removeAttribute("uphone");
+		session.invalidate();
+	}
 }

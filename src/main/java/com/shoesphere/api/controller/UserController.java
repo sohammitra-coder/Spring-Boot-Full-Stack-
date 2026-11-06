@@ -1,6 +1,7 @@
 package com.shoesphere.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,4 +26,10 @@ public class UserController {
 	public User login(@RequestBody User user,HttpSession session) {
 		return uservice.loginUser(user.getEmail(), user.getPassword(), session);
 	}
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		uservice.logoutUser(session);
+		return "Sesion Logged out Successfully!";
+	}
+	
 }
