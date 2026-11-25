@@ -8,5 +8,4 @@ import com.shoesphere.api.entity.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 	List<Order> findByUser_Id(Long userId);
-	List<Order> findByStatus(String status);
 }
